@@ -4,6 +4,12 @@ import { Sparkles, Link as LinkIcon, Upload, FileText, ArrowRight } from 'lucide
 
 type InputMethod = 'url' | 'file' | 'text' | null;
 
+// API URL configuration
+const API_BASE_URL = import.meta.env.VITE_API_URL 
+  || (import.meta.env.MODE === 'production' 
+    ? 'https://event-benefits-explainer-4.onrender.com'
+    : 'http://localhost:5000');
+
 export default function Home() {
   const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState<InputMethod>(null);
@@ -27,7 +33,7 @@ export default function Home() {
       let response;
 
       if (selectedMethod === 'url') {
-        response = await fetch('http://localhost:3001/api/parse/url', {
+        response = await fetch(`${API_BASE_URL}/api/parse/url`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url }),
@@ -36,12 +42,12 @@ export default function Home() {
         const formData = new FormData();
         files.forEach(file => formData.append('files', file));
         
-        response = await fetch('http://localhost:3001/api/parse/file', {
+        response = await fetch(`${API_BASE_URL}/api/parse/file`, {
           method: 'POST',
           body: formData,
         });
       } else if (selectedMethod === 'text') {
-        response = await fetch('http://localhost:3001/api/parse/text', {
+        response = await fetch(`${API_BASE_URL}/api/parse/text`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text }),
