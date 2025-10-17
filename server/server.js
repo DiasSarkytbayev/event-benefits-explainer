@@ -20,13 +20,8 @@ if (!process.env.GROQ_API_KEY) {
   process.exit(1);
 }
 
-if (!process.env.OCR_SPACE_API_KEY) {
-  console.error('❌ ERROR: OCR_SPACE_API_KEY is missing in .env file!');
-  process.exit(1);
-}
-
-if (!process.env.DATABASE_URL) {
-  console.error('❌ ERROR: DATABASE_URL is missing in .env file!');
+if (!process.env.DATABASE_URL && !process.env.MONGODB_URI) {
+  console.error('❌ ERROR: DATABASE_URL or MONGODB_URI is missing in .env file!');
   process.exit(1);
 }
 
