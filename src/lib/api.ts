@@ -1,7 +1,10 @@
 import axios from 'axios';
 
 // Backend API URL - should NOT include /api suffix
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const BASE_URL = import.meta.env.VITE_API_URL 
+  || (import.meta.env.MODE === 'production' 
+    ? 'https://event-benefits-explainer-4.onrender.com'
+    : 'http://localhost:5000');
 const API_URL = `${BASE_URL}/api`;
 
 const api = axios.create({
